@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>소재근 | 개인 앱 개발자</title>
+  <meta name="description" content="개인 앱 개발자 소재근의 공식 홈페이지입니다. 출시 앱, 개인정보 처리방침, 지원 연락처를 안내합니다." />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --ink: #17191d;
+      --muted: #5f6673;
+      --line: #dfe3ea;
+      --brand: #176b87;
+      --brand-dark: #0f4f64;
+      --accent: #d97706;
+      --soft: #e8f3f6;
+      --shadow: 0 16px 40px rgba(23, 25, 29, 0.08);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(223, 227, 234, 0.86);
+      background: rgba(246, 247, 249, 0.92);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--brand);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .nav-links a:hover {
+      color: var(--brand-dark);
+    }
+
+    main {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 36px;
+      align-items: center;
+      min-height: 76vh;
+      padding: 72px 0 48px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      color: var(--brand-dark);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    h1 {
+      max-width: 720px;
+      font-size: clamp(40px, 7vw, 76px);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 750;
+      box-shadow: 0 4px 16px rgba(23, 25, 29, 0.05);
+    }
+
+    .button.primary {
+      border-color: var(--brand);
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .profile-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .profile-panel h2 {
+      font-size: 18px;
+      margin-bottom: 18px;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .info-row {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #edf0f4;
+    }
+
+    .info-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .value {
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 650;
+      overflow-wrap: anywhere;
+    }
+
+    .section {
+      padding: 46px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .section h2 {
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .section-note {
+      max-width: 420px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .app-card,
+    .plain-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(23, 25, 29, 0.05);
+    }
+
+    .app-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .app-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--soft);
+      color: var(--brand-dark);
+      font-weight: 900;
+    }
+
+    .status {
+      border: 1px solid #f0d7ad;
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: #fff8ec;
+      color: #8a4b05;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .app-card h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .app-card p,
+    .plain-card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .plain-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+      list-style: none;
+    }
+
+    .check-list li {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      margin-right: 8px;
+      color: var(--brand);
+      font-weight: 900;
+    }
+
+    .contact-band {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      border: 1px solid #cfe2e8;
+      border-radius: 8px;
+      background: var(--soft);
+      padding: 28px;
+    }
+
+    .contact-band h2 {
+      font-size: clamp(24px, 4vw, 34px);
+      margin-bottom: 8px;
+    }
+
+    .contact-band p {
+      color: var(--muted);
+    }
+
+    footer {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 32px 0 44px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .hero,
+      .app-grid,
+      .two-column,
+      .contact-band {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 46px;
+      }
+
+      .section-header {
+        display: block;
+      }
+
+      .section-note {
+        margin-top: 10px;
+      }
+
+      .contact-band .button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 460px) {
+      main,
+      .nav,
+      footer {
+        width: min(100% - 28px, 1080px);
+      }
+
+      .profile-panel,
+      .app-card,
+      .plain-card,
+      .contact-band {
+        padding: 20px;
+      }
+
+      .info-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .actions .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="주요 메뉴">
+      <a class="brand" href="#">
+        <span class="brand-mark">SJ</span>
+        <span>소재근</span>
+      </a>
+      <div class="nav-links">
+        <a href="#apps">Apps</a>
+        <a href="#profile">Profile</a>
+        <a href="#support">Support</a>
+        <a href="../privacy-policy/index.html">Privacy</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">Independent App Developer</p>
+        <h1 id="hero-title">개인 앱 개발자 소재근입니다.</h1>
+        <p class="hero-copy">
+          일상에 바로 쓰이는 모바일 앱을 만들고 운영합니다. 이 페이지는 Google Play 개발자 확인, 사용자 지원,
+          개인정보 처리방침 안내를 위한 공식 홈페이지입니다.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="#apps">앱 보기</a>
+          <a class="button" href="../privacy-policy/index.html">개인정보 처리방침</a>
+          <a class="button" href="mailto:sojaegeun1229@gmail.com">문의하기</a>
+        </div>
+      </div>
+
+      <aside class="profile-panel" aria-label="개발자 기본 정보">
+        <h2>Developer Information</h2>
+        <div class="info-list">
+          <div class="info-row">
+            <span class="label">이름</span>
+            <span class="value">소재근</span>
+          </div>
+          <div class="info-row">
+            <span class="label">구분</span>
+            <span class="value">개인 개발자</span>
+          </div>
+          <div class="info-row">
+            <span class="label">앱 분야</span>
+            <span class="value">러닝, 생활 기록, 생산성</span>
+          </div>
+          <div class="info-row">
+            <span class="label">지원 이메일</span>
+            <span class="value">sojaegeun1229@gmail.com</span>
+          </div>
+          <div class="info-row">
+            <span class="label">정책</span>
+            <span class="value"><a href="../privacy-policy/index.html">개인정보 처리방침 바로가기</a></span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" id="apps" aria-labelledby="apps-title">
+      <div class="section-header">
+        <h2 id="apps-title">운영 및 준비 중인 앱</h2>
+        <p class="section-note">
+          각 앱은 사용자 데이터 최소 수집 원칙을 기준으로 설계하며, 필요한 권한은 기능 제공 목적에 한해 요청합니다.
+        </p>
+      </div>
+
+      <div class="app-grid">
+        <article class="app-card">
+          <div class="app-top">
+            <div class="app-icon">RC</div>
+            <span class="status">Active</span>
+          </div>
+          <h3>RunCodi</h3>
+          <p>
+            러닝 활동과 날씨 정보를 바탕으로 운동 준비를 돕는 모바일 앱입니다. 위치 권한은 러닝 기록과 날씨 확인 기능에 사용됩니다.
+          </p>
+          <div class="pill-list">
+            <span class="pill">Running</span>
+            <span class="pill">Weather</span>
+            <span class="pill">Location Permission</span>
+          </div>
+        </article>
+
+        <article class="app-card">
+          <div class="app-top">
+            <div class="app-icon">HG</div>
+            <span class="status">In Progress</span>
+          </div>
+          <h3>하루감사</h3>
+          <p>
+            하루의 감사한 순간을 간단히 기록하고 돌아볼 수 있도록 돕는 생활 기록 앱입니다.
+          </p>
+          <div class="pill-list">
+            <span class="pill">Journal</span>
+            <span class="pill">Daily Record</span>
+            <span class="pill">Privacy First</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="profile" aria-labelledby="profile-title">
+      <div class="section-header">
+        <h2 id="profile-title">개발 원칙</h2>
+        <p class="section-note">
+          개인 개발자로서 작은 기능도 명확한 목적과 책임 있는 데이터 사용을 기준으로 운영합니다.
+        </p>
+      </div>
+
+      <div class="two-column">
+        <div class="plain-card">
+          <h3>투명한 정보 제공</h3>
+          <p>
+            사용자가 앱이 어떤 권한과 데이터를 필요로 하는지 확인할 수 있도록 개인정보 처리방침과 지원 연락처를 공개합니다.
+          </p>
+          <ul class="check-list">
+            <li>앱별 필요한 권한만 요청</li>
+            <li>수집 목적과 보유 기간 안내</li>
+            <li>문의 가능한 공개 이메일 제공</li>
+          </ul>
+        </div>
+
+        <div class="plain-card">
+          <h3>사용자 중심 운영</h3>
+          <p>
+            앱은 일상 속 문제를 빠르게 해결하는 데 집중하며, 복잡한 가입 절차나 불필요한 데이터 수집을 줄이는 방향으로 개선합니다.
+          </p>
+          <ul class="check-list">
+            <li>단순하고 빠른 사용 흐름</li>
+            <li>모바일 환경에 맞춘 화면 구성</li>
+            <li>사용자 피드백 기반 업데이트</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="support" aria-labelledby="support-title">
+      <div class="contact-band">
+        <div>
+          <h2 id="support-title">앱 문의 및 지원</h2>
+          <p>
+            앱 사용 중 문제가 있거나 개인정보 관련 요청이 있다면 이메일로 연락해 주세요. 배포 전 실제 지원 이메일로 교체해서 사용하면 됩니다.
+          </p>
+        </div>
+        <a class="button primary" href="mailto:sojaegeun1229@gmail.com">sojaegeun1229@gmail.com</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 소재근. Independent app developer homepage for Google Play verification and user support.</p>
+  </footer>
+</body>
+</html>
