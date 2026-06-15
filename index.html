@@ -195,22 +195,21 @@
     }
     .store-btns {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      flex-wrap: wrap;
       gap: 6px;
-      width: 100%;
       margin-top: auto;
     }
     .store-btn {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 8px 14px;
+      gap: 6px;
+      padding: 7px 12px;
       border-radius: 999px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       background: var(--ink);
       color: var(--canvas);
-      width: fit-content;
       white-space: nowrap;
       transition: opacity 0.15s;
     }
@@ -222,8 +221,8 @@
       cursor: default;
     }
     .store-btn svg {
-      width: 14px;
-      height: 14px;
+      width: 13px;
+      height: 13px;
       flex-shrink: 0;
       fill: currentColor;
     }
@@ -253,13 +252,18 @@
     @media (max-width: 680px) {
       .app-grid { grid-template-columns: repeat(2, 1fr); }
       nav { padding: 0 16px; }
-      .hero { padding: 48px 16px 44px; }
-      .section { padding: 40px 16px 36px; }
+      .hero { padding: 40px 16px 36px; }
+      .section { padding: 32px 16px 28px; }
       footer { padding: 28px 16px 40px; }
     }
-    @media (max-width: 420px) {
-      .app-grid { grid-template-columns: 1fr; }
-      .store-btn { width: 100%; justify-content: center; }
+    @media (max-width: 480px) {
+      .app-cell { padding: 14px 12px 18px; }
+      .app-icon { width: 48px; height: 48px; border-radius: 11px; margin-bottom: 10px; }
+      .app-icon-placeholder { width: 48px; height: 48px; border-radius: 11px; margin-bottom: 10px; }
+      .app-name { font-size: 13px; }
+      .app-desc { font-size: 11px; margin-bottom: 10px; }
+      .store-btn { font-size: 10px; padding: 5px 7px; gap: 3px; }
+      .store-btn svg { width: 10px; height: 10px; }
     }
   </style>
 </head>
@@ -302,7 +306,7 @@
             App Store
           </a>
           <span class="store-btn review">
-            <svg viewBox="0 0 24 24"><path d="M3.18 23.76c.3.17.65.19.97.09L13.93 12 4.15.15c-.32-.1-.67-.08-.97.09C2.54.61 2.1 1.3 2.1 2.08v19.84c0 .78.44 1.47 1.08 1.84zm5.49-5.57l1.96-1.96 2.58 2.58-4.54-.62zm8.85-6.19c.42.24.42.9 0 1.14l-2.44 1.4-2.74-2.74 2.74-2.74 2.44 1.4zM8.67 5.81l4.54-.62-2.58 2.58L8.67 5.81z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.103-11.087L1.337.924zm12.207 10.065l2.097-2.09L3.186.896a1.48 1.48 0 0 0-.811-.191l11.169 10.284zm0 2.067L2.375 23.295c.22.068.467.073.712-.05l12.468-7.182-2.011-2.007z"/></svg>
             <span data-i18n="review">심사중</span>
           </span>
         </div>
@@ -318,7 +322,7 @@
             App Store
           </a>
           <span class="store-btn review">
-            <svg viewBox="0 0 24 24"><path d="M3.18 23.76c.3.17.65.19.97.09L13.93 12 4.15.15c-.32-.1-.67-.08-.97.09C2.54.61 2.1 1.3 2.1 2.08v19.84c0 .78.44 1.47 1.08 1.84zm5.49-5.57l1.96-1.96 2.58 2.58-4.54-.62zm8.85-6.19c.42.24.42.9 0 1.14l-2.44 1.4-2.74-2.74 2.74-2.74 2.44 1.4zM8.67 5.81l4.54-.62-2.58 2.58L8.67 5.81z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.103-11.087L1.337.924zm12.207 10.065l2.097-2.09L3.186.896a1.48 1.48 0 0 0-.811-.191l11.169 10.284zm0 2.067L2.375 23.295c.22.068.467.073.712-.05l12.468-7.182-2.011-2.007z"/></svg>
             <span data-i18n="review">심사중</span>
           </span>
         </div>
@@ -371,7 +375,7 @@
             App Store
           </a>
           <span class="store-btn review">
-            <svg viewBox="0 0 24 24"><path d="M3.18 23.76c.3.17.65.19.97.09L13.93 12 4.15.15c-.32-.1-.67-.08-.97.09C2.54.61 2.1 1.3 2.1 2.08v19.84c0 .78.44 1.47 1.08 1.84zm5.49-5.57l1.96-1.96 2.58 2.58-4.54-.62zm8.85-6.19c.42.24.42.9 0 1.14l-2.44 1.4-2.74-2.74 2.74-2.74 2.44 1.4zM8.67 5.81l4.54-.62-2.58 2.58L8.67 5.81z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.103-11.087L1.337.924zm12.207 10.065l2.097-2.09L3.186.896a1.48 1.48 0 0 0-.811-.191l11.169 10.284zm0 2.067L2.375 23.295c.22.068.467.073.712-.05l12.468-7.182-2.011-2.007z"/></svg>
             <span data-i18n="review">심사중</span>
           </span>
         </div>
