@@ -3,526 +3,682 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>개인개발자홈페이지</title>
-  <meta name="description" content="단순하지만 재미있는 인디게임과 라이프스타일 앱을 만드는 개인 개발자 소재근의 홈페이지입니다." />
+  <title>NAMOO GAMES | 개인 개발자 홈페이지</title>
+  <meta name="description" content="누구나 쉽게 즐길 수 있는 재미를 만드는 1인 개발자 Jaegeun So의 홈페이지입니다." />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&family=Hanken+Grotesk:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink: #111111;
-      --canvas: #ffffff;
-      --cloud: #f5f5f5;
-      --mute: #707072;
-      --hairline: #cacacb;
-      --hairline-soft: #e5e5e5;
+      --bg:       #11150b;
+      --bg-low:   #191d13;
+      --bg-card:  #1d2117;
+      --primary:  #a0df4c;
+      --on-surface: #e1e4d4;
+      --on-muted:   #c2c9b2;
+      --outline:    #424937;
+      --outline-soft: rgba(255,255,255,0.06);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--canvas);
-      color: var(--ink);
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-      line-height: 1.5;
+      background: var(--bg);
+      color: var(--on-surface);
+      font-family: 'Hanken Grotesk', -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     a { color: inherit; text-decoration: none; }
 
-    /* ── UTILITY BAR ── */
+    /* ── PARTICLES ── */
+    #particles {
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.25;
+    }
+
+    /* ── UTIL BAR ── */
     .util-bar {
-      background: var(--ink);
-      color: var(--canvas);
+      background: rgba(0,0,0,0.6);
+      border-bottom: 1px solid var(--outline);
       text-align: center;
-      padding: 8px 24px;
+      padding: 7px 24px;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
+      font-weight: 500;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
+      color: var(--on-muted);
+      position: relative; z-index: 10;
     }
 
     /* ── NAV ── */
     .nav-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--hairline-soft);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(17,21,11,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--outline);
     }
     nav {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 24px;
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 40px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--mute);
+    .nav-brand { display: flex; align-items: center; gap: 10px; }
+    .nav-brand img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .nav-brand-name {
+      font-family: 'Sora', sans-serif;
+      font-size: 18px; font-weight: 800;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--on-surface);
     }
-    .nav-links a:hover { color: var(--ink); }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500;
+      color: var(--on-muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .lang-btn {
+      background: transparent;
+      border: 1px solid var(--outline);
+      color: var(--on-muted);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .lang-btn:hover { border-color: var(--primary); color: var(--primary); }
 
     /* ── HERO ── */
     .hero {
-      position: relative;
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 40px 24px 36px;
-      border-bottom: 1px solid var(--hairline-soft);
-      overflow: hidden;
-      height: 260px;
+      position: relative; z-index: 1;
+      min-height: 90vh;
+      max-width: 1200px; margin: 0 auto;
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 48px;
     }
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 78%;
-      opacity: 0.85;
-      pointer-events: none;
-      user-select: none;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 1;
+    .hero-left { z-index: 2; }
+    .hero-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 20px;
     }
     .hero-name {
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 10px;
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(48px, 7vw, 80px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--on-surface);
+      margin-bottom: 24px;
     }
+    .hero-name span { color: var(--primary); }
     .hero-desc {
-      font-size: 15px;
-      color: var(--mute);
-      max-width: 480px;
-      line-height: 1.7;
+      font-size: 17px; line-height: 1.75;
+      color: var(--on-muted);
+      max-width: 440px;
+      margin-bottom: 36px;
     }
-    .lang-btn {
-      position: absolute;
-      top: 20px;
-      right: 24px;
-      z-index: 2;
-      padding: 6px 14px;
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero-tag-pill {
+      display: flex; align-items: center; gap: 7px;
+      padding: 8px 16px;
+      border: 1px solid var(--outline);
       border-radius: 999px;
-      border: 1px solid var(--hairline);
-      background: rgba(255,255,255,0.85);
-      color: var(--ink);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      cursor: pointer;
-      backdrop-filter: blur(8px);
-      transition: background 0.15s;
+      background: var(--bg-card);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--on-muted);
     }
-    .lang-btn:hover { background: var(--cloud); }
+
+    /* ── HERO RIGHT (bouncing logo) ── */
+    .hero-right {
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .hero-logo-wrap {
+      position: relative;
+      animation: float 3.6s ease-in-out infinite;
+    }
+    .hero-logo-wrap img {
+      width: clamp(240px, 30vw, 380px);
+      height: clamp(240px, 30vw, 380px);
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative; z-index: 2;
+      filter: drop-shadow(0 0 40px rgba(160,223,76,0.45));
+    }
+    .hero-glow {
+      position: absolute; inset: -30px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(160,223,76,0.18) 0%, transparent 70%);
+      animation: pulse-glow 3.6s ease-in-out infinite;
+      z-index: 1;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-22px); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50%       { opacity: 1;   transform: scale(1.08); }
+    }
 
     /* ── SECTION ── */
     .section {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 56px 24px 48px;
-      border-bottom: 1px solid var(--hairline-soft);
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto;
+      padding: 80px 40px;
+    }
+    .section + .section { padding-top: 20px; }
+    .section-header { margin-bottom: 40px; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
     }
     .section-title {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--mute);
-      margin-bottom: 32px;
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--on-surface);
+    }
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--outline);
+      margin: 0 40px;
+      position: relative; z-index: 1;
     }
 
     /* ── APP GRID ── */
     .app-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: var(--hairline-soft);
-      border: 1px solid var(--hairline-soft);
+      gap: 20px;
     }
-    .app-cell {
-      background: var(--canvas);
-      padding: 28px 24px 32px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .app-cell.empty { background: var(--cloud); }
 
-    .app-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 16px;
+    /* ── APP CARD ── */
+    .app-card {
+      background: rgba(50,54,43,0.15);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--outline-soft);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex; flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.35s, box-shadow 0.35s, transform 0.35s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .app-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.35s, box-shadow 0.35s;
+    }
+    .app-card:hover {
+      border-color: rgba(160,223,76,0.3);
+      box-shadow: 0 0 30px rgba(160,223,76,0.1);
+      transform: translateY(-4px);
+    }
+    .app-card.empty {
+      opacity: 0.3 !important;
+      transform: none !important;
+      pointer-events: none;
+    }
+    .app-card.empty.visible { opacity: 0.25 !important; }
+
+    .app-icon-wrap {
+      width: 64px; height: 64px;
+      border-radius: 14px;
       overflow: hidden;
-      margin-bottom: 14px;
+      background: var(--bg-card);
       flex-shrink: 0;
     }
-    .app-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .app-icon-wrap img { width: 100%; height: 100%; object-fit: cover; }
     .app-icon-placeholder {
-      width: 72px;
-      height: 72px;
-      border-radius: 16px;
-      background: var(--hairline-soft);
-      margin-bottom: 14px;
-      flex-shrink: 0;
+      width: 64px; height: 64px;
+      border-radius: 14px;
+      background: var(--bg-card);
+      border: 1px dashed var(--outline);
     }
     .app-name {
-      font-size: 16px;
-      font-weight: 600;
+      font-family: 'Sora', sans-serif;
+      font-size: 16px; font-weight: 700;
+      color: var(--on-surface);
       letter-spacing: -0.01em;
-      margin-bottom: 4px;
+    }
+    .app-name.empty-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--outline);
     }
     .app-desc {
-      font-size: 13px;
-      color: var(--mute);
-      margin-bottom: 16px;
-      line-height: 1.5;
+      font-size: 13px; line-height: 1.6;
+      color: var(--on-muted);
       flex: 1;
     }
-    .store-btns {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: auto;
-    }
+
+    /* ── STORE BUTTONS ── */
+    .store-btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
     .store-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 12px;
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 7px 13px;
       border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
-      background: var(--ink);
-      color: var(--canvas);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.05em;
+      background: var(--primary);
+      color: #112000;
       white-space: nowrap;
-      transition: opacity 0.15s;
+      transition: filter 0.2s;
     }
-    .store-btn:hover { opacity: 0.78; }
+    .store-btn:hover { filter: brightness(1.1); }
+    .store-btn svg { width: 11px; height: 11px; fill: currentColor; flex-shrink: 0; }
     .store-btn.review {
-      background: var(--cloud);
-      color: var(--mute);
-      border: 1px solid var(--hairline);
+      background: var(--bg-card);
+      color: var(--outline);
+      border: 1px solid var(--outline);
       cursor: default;
     }
-    .store-btn svg {
-      width: 13px;
-      height: 13px;
-      flex-shrink: 0;
-      fill: currentColor;
-    }
+    .store-btn.review:hover { filter: none; }
 
     /* ── FOOTER ── */
     footer {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 32px 24px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--outline);
+      background: var(--bg-low);
+      padding: 32px 40px;
     }
-    footer p { font-size: 13px; color: var(--mute); }
-    .footer-link {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--mute);
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-copy {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--on-muted);
+      opacity: 0.6;
+    }
+    .footer-social { display: flex; gap: 16px; align-items: center; }
+    .footer-social a {
+      color: var(--on-muted);
+      opacity: 0.6;
+      transition: color 0.2s, opacity 0.2s;
+    }
+    .footer-social a:hover { color: var(--primary); opacity: 1; }
+    .footer-social svg { width: 20px; height: 20px; fill: currentColor; display: block; }
+    .footer-privacy {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--on-muted);
+      opacity: 0.6;
       text-decoration: underline;
       text-underline-offset: 3px;
+      transition: opacity 0.2s, color 0.2s;
     }
-    .footer-link:hover { color: var(--ink); }
-    .social-icons { display: flex; gap: 14px; align-items: center; }
-    .social-icon { color: var(--mute); transition: color 0.15s; }
-    .social-icon:hover { color: var(--ink); }
-    .social-icon svg { width: 20px; height: 20px; fill: currentColor; display: block; }
+    .footer-privacy:hover { opacity: 1; color: var(--primary); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 680px) {
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding: 60px 24px; }
+      .hero-right { order: -1; }
+      .hero-logo-wrap img { width: 180px; height: 180px; }
       .app-grid { grid-template-columns: repeat(2, 1fr); }
-      nav { padding: 0 16px; }
-      .hero { padding: 40px 16px 36px; }
-      .section { padding: 32px 16px 28px; }
-      footer { padding: 28px 16px 40px; }
+      nav { padding: 0 20px; }
+      .nav-brand-name { display: none; }
+      .nav-links a { display: none; }
     }
-    @media (max-width: 480px) {
-      .app-cell { padding: 14px 12px 18px; }
-      .app-icon { width: 48px; height: 48px; border-radius: 11px; margin-bottom: 10px; }
-      .app-icon-placeholder { width: 48px; height: 48px; border-radius: 11px; margin-bottom: 10px; }
-      .app-name { font-size: 13px; }
-      .app-desc { font-size: 11px; margin-bottom: 10px; }
-      .store-btn { font-size: 10px; padding: 5px 7px; gap: 3px; }
-      .store-btn svg { width: 10px; height: 10px; }
+    @media (max-width: 540px) {
+      .section { padding: 48px 20px; }
+      .app-card { padding: 18px 14px; }
+      .app-icon-wrap { width: 48px; height: 48px; }
+      .app-icon-placeholder { width: 48px; height: 48px; }
+      .app-name { font-size: 14px; }
+      .app-desc { font-size: 12px; }
+      .store-btn { font-size: 10px; padding: 5px 9px; }
+      .store-btn svg { width: 9px; height: 9px; }
+      footer { padding: 24px 20px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="util-bar" data-i18n="util">개인개발자홈페이지</div>
+<canvas id="particles"></canvas>
 
-  <div class="nav-wrap">
-    <nav>
-      <div class="nav-links">
-        <a href="#games" data-i18n="nav-games">게임</a>
-        <a href="#lifestyle" data-i18n="nav-lifestyle">라이프스타일</a>
-        <a href="https://jeonjin2.github.io/privacy-policy/" target="_blank" rel="noopener" data-i18n="nav-privacy">개인정보처리방침</a>
-      </div>
-    </nav>
+<div class="util-bar" data-i18n="util">개인개발자홈페이지</div>
+
+<div class="nav-wrap">
+  <nav>
+    <div class="nav-brand">
+      <img src="images/namoo_logo.png" alt="NAMOO GAMES" />
+      <span class="nav-brand-name">NAMOO GAMES</span>
+    </div>
+    <div class="nav-links">
+      <a href="#games" data-i18n="nav-games">게임</a>
+      <a href="#lifestyle" data-i18n="nav-lifestyle">라이프스타일</a>
+      <a href="https://jeonjin2.github.io/privacy-policy/" target="_blank" rel="noopener" data-i18n="nav-privacy">개인정보처리방침</a>
+      <button class="lang-btn" id="langBtn" onclick="toggleLang()">ENG</button>
+    </div>
+  </nav>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag" data-i18n="hero-tag">1인 인디 게임 개발자</p>
+    <h1 class="hero-name">Jaegeun<br><span>So</span></h1>
+    <p class="hero-desc" data-i18n="hero-desc">복잡한 것보다 누구나 쉽게 즐길 수 있는 재미를 만드는 1인 개발자입니다. 퍼즐·캐주얼 게임과 러닝·운동 같은 라이프스타일 앱을 직접 기획하고 개발해 꾸준히 출시하고 있습니다.</p>
+    <div class="hero-tags">
+      <span class="hero-tag-pill">💡 <span data-i18n="tag-idea">기획</span></span>
+      <span class="hero-tag-pill">✏️ <span data-i18n="tag-design">디자인</span></span>
+      <span class="hero-tag-pill">&lt;/&gt; <span data-i18n="tag-dev">개발</span></span>
+    </div>
   </div>
-
-  <!-- ── HERO ── -->
-  <section class="hero">
-    <img class="hero-bg" src="images/profile.png" alt="" aria-hidden="true" />
-    <button class="lang-btn" id="langBtn" onclick="toggleLang()">ENG</button>
-    <div class="hero-content">
-      <p class="hero-name">Jaegeun So</p>
-      <p class="hero-desc" data-i18n="hero-desc">복잡한 것보다 누구나 쉽게 즐길 수 있는 재미를 만드는 1인 개발자입니다. 퍼즐·캐주얼 게임과 러닝·운동 같은 라이프스타일 앱을 직접 기획하고 개발해 꾸준히 출시하고 있습니다.</p>
+  <div class="hero-right">
+    <div class="hero-logo-wrap">
+      <div class="hero-glow"></div>
+      <img src="images/namoo_logo.png" alt="NAMOO GAMES" />
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── GAMES ── -->
-  <section class="section" id="games">
-    <p class="section-title" data-i18n="section-games">게임</p>
-    <div class="app-grid">
+<hr class="section-divider" />
 
-      <div class="app-cell">
-        <div class="app-icon"><img src="images/paint_worm.png" alt="Paint Worm" /></div>
-        <p class="app-name" data-i18n="pw-name">페인트웜</p>
-        <p class="app-desc" data-i18n="pw-desc">색을 칠하며 나아가는 캐주얼 퍼즐 게임</p>
-        <div class="store-btns">
-          <a class="store-btn" href="https://apps.apple.com/app/id6774560112" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            App Store
-          </a>
-          <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.jamesso.paintworm" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.103-11.087L1.337.924zm12.207 10.065l2.097-2.09L3.186.896a1.48 1.48 0 0 0-.811-.191l11.169 10.284zm0 2.067L2.375 23.295c.22.068.467.073.712-.05l12.468-7.182-2.011-2.007z"/></svg>
-            Google Play
-          </a>
-        </div>
-      </div>
+<!-- ── GAMES ── -->
+<section class="section" id="games">
+  <div class="section-header">
+    <p class="section-label" data-i18n="label-games">Games</p>
+    <h2 class="section-title" data-i18n="section-games">게임</h2>
+  </div>
+  <div class="app-grid">
 
-      <div class="app-cell">
-        <div class="app-icon"><img src="images/monopath.png" alt="Monopath" /></div>
-        <p class="app-name" data-i18n="mp-name">모노패스</p>
-        <p class="app-desc" data-i18n="mp-desc">모든 타일을 한 붓으로 잇는 퍼즐 게임</p>
-        <div class="store-btns">
-          <a class="store-btn" href="https://apps.apple.com/kr/app/monopath-tile-puzzle/id6778261177" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            App Store
-          </a>
-          <span class="store-btn review">
-            <svg viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.103-11.087L1.337.924zm12.207 10.065l2.097-2.09L3.186.896a1.48 1.48 0 0 0-.811-.191l11.169 10.284zm0 2.067L2.375 23.295c.22.068.467.073.712-.05l12.468-7.182-2.011-2.007z"/></svg>
-            <span data-i18n="review">심사중</span>
-          </span>
-        </div>
+    <div class="app-card">
+      <div class="app-icon-wrap"><img src="images/paint_worm.png" alt="Paint Worm" /></div>
+      <p class="app-name" data-i18n="pw-name">페인트웜</p>
+      <p class="app-desc" data-i18n="pw-desc">색을 칠하며 나아가는 캐주얼 퍼즐 게임</p>
+      <div class="store-btns">
+        <a class="store-btn" href="https://apps.apple.com/app/id6774560112" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store
+        </a>
+        <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.jamesso.paintworm" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.103-11.087L1.337.924zm12.207 10.065l2.097-2.09L3.186.896a1.48 1.48 0 0 0-.811-.191l11.169 10.284zm0 2.067L2.375 23.295c.22.068.467.073.712-.05l12.468-7.182-2.011-2.007z"/></svg>
+          Google Play
+        </a>
       </div>
-
-      <div class="app-cell">
-        <div class="app-icon"><img src="images/memoriq.png" alt="MemoriQ" /></div>
-        <p class="app-name" data-i18n="mq-name">MemoriQ</p>
-        <p class="app-desc" data-i18n="mq-desc">뒤집힌 카드를 맞추며 기억력을 키우는 암기력 게임</p>
-        <div class="store-btns">
-          <a class="store-btn" href="https://apps.apple.com/kr/app/memoriq-memory-training/id6779842538" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            App Store
-          </a>
-          <span class="store-btn review">
-            <svg viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.103-11.087L1.337.924zm12.207 10.065l2.097-2.09L3.186.896a1.48 1.48 0 0 0-.811-.191l11.169 10.284zm0 2.067L2.375 23.295c.22.068.467.073.712-.05l12.468-7.182-2.011-2.007z"/></svg>
-            <span data-i18n="review">심사중</span>
-          </span>
-        </div>
-      </div>
-      <div class="app-cell">
-        <div class="app-icon"><img src="images/colourq.png" alt="ColourQ" /></div>
-        <p class="app-name" data-i18n="cq-name">ColourQ</p>
-        <p class="app-desc" data-i18n="cq-desc">색감을 겨루는 감각적인 컬러 퍼즐 게임</p>
-        <div class="store-btns">
-          <a class="store-btn" href="https://apps.apple.com/kr/app/colourq-colour-clash/id6781630358" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            App Store
-          </a>
-        </div>
-      </div>
-      <div class="app-cell">
-        <div class="app-icon"><img src="images/chromabarq.png" alt="ChromabarQ" /></div>
-        <p class="app-name" data-i18n="cbq-name">ChromabarQ</p>
-        <p class="app-desc" data-i18n="cbq-desc">색깔 링을 맞춰 정렬하는 컬러 퍼즐 게임</p>
-        <div class="store-btns">
-          <span class="store-btn review">
-            <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            <span data-i18n="review">심사중</span>
-          </span>
-          <span class="store-btn review">
-            <svg viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.103-11.087L1.337.924zm12.207 10.065l2.097-2.09L3.186.896a1.48 1.48 0 0 0-.811-.191l11.169 10.284zm0 2.067L2.375 23.295c.22.068.467.073.712-.05l12.468-7.182-2.011-2.007z"/></svg>
-            <span data-i18n="review">심사중</span>
-          </span>
-        </div>
-      </div>
-      <div class="app-cell empty">
-        <div class="app-icon-placeholder"></div>
-        <p class="app-name" style="color:var(--hairline);" data-i18n="tbd">준비중</p>
-      </div>
-      <div class="app-cell empty">
-        <div class="app-icon-placeholder"></div>
-        <p class="app-name" style="color:var(--hairline);" data-i18n="tbd">준비중</p>
-      </div>
-      <div class="app-cell empty">
-        <div class="app-icon-placeholder"></div>
-        <p class="app-name" style="color:var(--hairline);" data-i18n="tbd">준비중</p>
-      </div>
-      <div class="app-cell empty">
-        <div class="app-icon-placeholder"></div>
-        <p class="app-name" style="color:var(--hairline);" data-i18n="tbd">준비중</p>
-      </div>
-
     </div>
-  </section>
 
-  <!-- ── LIFESTYLE ── -->
-  <section class="section" id="lifestyle">
-    <p class="section-title" data-i18n="section-lifestyle">라이프스타일</p>
-    <div class="app-grid">
-
-      <div class="app-cell">
-        <div class="app-icon"><img src="images/runcodi.png" alt="RunCodi" /></div>
-        <p class="app-name">RunCodi</p>
-        <p class="app-desc" data-i18n="rc-desc">날씨에 맞는 러닝 복장을 추천해주는 앱</p>
-        <div class="store-btns">
-          <a class="store-btn" href="https://apps.apple.com/kr/app/%EB%9F%B0%EC%BD%94%EB%94%94/id6772976140" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            App Store
-          </a>
-          <span class="store-btn review">
-            <svg viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.103-11.087L1.337.924zm12.207 10.065l2.097-2.09L3.186.896a1.48 1.48 0 0 0-.811-.191l11.169 10.284zm0 2.067L2.375 23.295c.22.068.467.073.712-.05l12.468-7.182-2.011-2.007z"/></svg>
-            <span data-i18n="review">심사중</span>
-          </span>
-        </div>
+    <div class="app-card">
+      <div class="app-icon-wrap"><img src="images/monopath.png" alt="Monopath" /></div>
+      <p class="app-name" data-i18n="mp-name">모노패스</p>
+      <p class="app-desc" data-i18n="mp-desc">모든 타일을 한 붓으로 잇는 퍼즐 게임</p>
+      <div class="store-btns">
+        <a class="store-btn" href="https://apps.apple.com/kr/app/monopath-tile-puzzle/id6778261177" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store
+        </a>
+        <span class="store-btn review">
+          <svg viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.103-11.087L1.337.924zm12.207 10.065l2.097-2.09L3.186.896a1.48 1.48 0 0 0-.811-.191l11.169 10.284zm0 2.067L2.375 23.295c.22.068.467.073.712-.05l12.468-7.182-2.011-2.007z"/></svg>
+          <span data-i18n="review">심사중</span>
+        </span>
       </div>
-
-      <div class="app-cell">
-        <div class="app-icon"><img src="images/snack_exercise.png" alt="스낵운동" /></div>
-        <p class="app-name" data-i18n="se-name">스낵운동</p>
-        <p class="app-desc" data-i18n="se-desc">틈새 시간에 즐기는 1분 마이크로 운동 앱</p>
-        <div class="store-btns">
-          <span class="store-btn review"><span data-i18n="coming-soon-app">출시 준비중</span></span>
-        </div>
-      </div>
-
-      <div class="app-cell empty">
-        <div class="app-icon-placeholder"></div>
-        <p class="app-name" style="color:var(--hairline);" data-i18n="tbd">준비중</p>
-      </div>
-      <div class="app-cell empty">
-        <div class="app-icon-placeholder"></div>
-        <p class="app-name" style="color:var(--hairline);" data-i18n="tbd">준비중</p>
-      </div>
-      <div class="app-cell empty">
-        <div class="app-icon-placeholder"></div>
-        <p class="app-name" style="color:var(--hairline);" data-i18n="tbd">준비중</p>
-      </div>
-      <div class="app-cell empty">
-        <div class="app-icon-placeholder"></div>
-        <p class="app-name" style="color:var(--hairline);" data-i18n="tbd">준비중</p>
-      </div>
-
     </div>
-  </section>
 
-  <footer>
-    <p>© 2026 Jaegeun So</p>
-    <div class="social-icons">
-      <a class="social-icon" href="https://youtube.com/@namoogamesofficial" target="_blank" rel="noopener" aria-label="YouTube">
+    <div class="app-card">
+      <div class="app-icon-wrap"><img src="images/memoriq.png" alt="MemoriQ" /></div>
+      <p class="app-name" data-i18n="mq-name">MemoriQ</p>
+      <p class="app-desc" data-i18n="mq-desc">뒤집힌 카드를 맞추며 기억력을 키우는 암기력 게임</p>
+      <div class="store-btns">
+        <a class="store-btn" href="https://apps.apple.com/kr/app/memoriq-memory-training/id6779842538" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store
+        </a>
+        <span class="store-btn review">
+          <svg viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.103-11.087L1.337.924zm12.207 10.065l2.097-2.09L3.186.896a1.48 1.48 0 0 0-.811-.191l11.169 10.284zm0 2.067L2.375 23.295c.22.068.467.073.712-.05l12.468-7.182-2.011-2.007z"/></svg>
+          <span data-i18n="review">심사중</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <div class="app-icon-wrap"><img src="images/colourq.png" alt="ColourQ" /></div>
+      <p class="app-name" data-i18n="cq-name">ColourQ</p>
+      <p class="app-desc" data-i18n="cq-desc">색감을 겨루는 감각적인 컬러 퍼즐 게임</p>
+      <div class="store-btns">
+        <a class="store-btn" href="https://apps.apple.com/kr/app/colourq-colour-clash/id6781630358" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store
+        </a>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <div class="app-icon-wrap"><img src="images/chromabarq.png" alt="ChromabarQ" /></div>
+      <p class="app-name" data-i18n="cbq-name">ChromabarQ</p>
+      <p class="app-desc" data-i18n="cbq-desc">색깔 링을 맞춰 정렬하는 컬러 퍼즐 게임</p>
+      <div class="store-btns">
+        <span class="store-btn review">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <span data-i18n="review">심사중</span>
+        </span>
+        <span class="store-btn review">
+          <svg viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.103-11.087L1.337.924zm12.207 10.065l2.097-2.09L3.186.896a1.48 1.48 0 0 0-.811-.191l11.169 10.284zm0 2.067L2.375 23.295c.22.068.467.073.712-.05l12.468-7.182-2.011-2.007z"/></svg>
+          <span data-i18n="review">심사중</span>
+        </span>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- ── LIFESTYLE ── -->
+<section class="section" id="lifestyle">
+  <div class="section-header">
+    <p class="section-label" data-i18n="label-lifestyle">Lifestyle</p>
+    <h2 class="section-title" data-i18n="section-lifestyle">라이프스타일</h2>
+  </div>
+  <div class="app-grid">
+
+    <div class="app-card">
+      <div class="app-icon-wrap"><img src="images/runcodi.png" alt="RunCodi" /></div>
+      <p class="app-name">RunCodi</p>
+      <p class="app-desc" data-i18n="rc-desc">날씨에 맞는 러닝 복장을 추천해주는 앱</p>
+      <div class="store-btns">
+        <a class="store-btn" href="https://apps.apple.com/kr/app/%EB%9F%B0%EC%BD%94%EB%94%94/id6772976140" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store
+        </a>
+        <span class="store-btn review">
+          <svg viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.103-11.087L1.337.924zm12.207 10.065l2.097-2.09L3.186.896a1.48 1.48 0 0 0-.811-.191l11.169 10.284zm0 2.067L2.375 23.295c.22.068.467.073.712-.05l12.468-7.182-2.011-2.007z"/></svg>
+          <span data-i18n="review">심사중</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <div class="app-icon-wrap"><img src="images/snack_exercise.png" alt="스낵운동" /></div>
+      <p class="app-name" data-i18n="se-name">스낵운동</p>
+      <p class="app-desc" data-i18n="se-desc">틈새 시간에 즐기는 1분 마이크로 운동 앱</p>
+      <div class="store-btns">
+        <span class="store-btn review"><span data-i18n="coming-soon-app">출시 준비중</span></span>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-copy">© 2026 Jamesso. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://youtube.com/@namoogamesofficial" target="_blank" rel="noopener" aria-label="YouTube">
         <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
       </a>
-      <a class="social-icon" href="https://www.tiktok.com/@paintwormofficial" target="_blank" rel="noopener" aria-label="TikTok">
+      <a href="https://www.tiktok.com/@paintwormofficial" target="_blank" rel="noopener" aria-label="TikTok">
         <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
       </a>
     </div>
-    <a class="footer-link" href="https://jeonjin2.github.io/privacy-policy/" target="_blank" rel="noopener" data-i18n="nav-privacy">개인정보처리방침</a>
-  </footer>
+    <a class="footer-privacy" href="https://jeonjin2.github.io/privacy-policy/" target="_blank" rel="noopener" data-i18n="nav-privacy">개인정보처리방침</a>
+  </div>
+</footer>
 
-  <script>
-    const translations = {
-      ko: {
-        'util':             '개인개발자홈페이지',
-        'nav-games':        '게임',
-        'nav-lifestyle':    '라이프스타일',
-        'nav-privacy':      '개인정보처리방침',
-        'hero-desc':        '복잡한 것보다 누구나 쉽게 즐길 수 있는 재미를 만드는 1인 개발자입니다. 퍼즐·캐주얼 게임과 러닝·운동 같은 라이프스타일 앱을 직접 기획하고 개발해 꾸준히 출시하고 있습니다.',
-        'section-games':    '게임',
-        'section-lifestyle':'라이프스타일',
-        'pw-name':          '페인트웜',
-        'pw-desc':          '색을 칠하며 나아가는 캐주얼 퍼즐 게임',
-        'mp-name':          '모노패스',
-        'mp-desc':          '모든 타일을 한 붓으로 잇는 퍼즐 게임',
-        'mq-name':          'MemoriQ',
-        'mq-desc':          '뒤집힌 카드를 맞추며 기억력을 키우는 암기력 게임',
-        'cq-name':          'ColourQ',
-        'cq-desc':          '색감을 겨루는 감각적인 컬러 퍼즐 게임',
-        'cbq-name':         'ChromabarQ',
-        'cbq-desc':         '색깔 링을 맞춰 정렬하는 컬러 퍼즐 게임',
-        'rc-desc':          '날씨에 맞는 러닝 복장을 추천해주는 앱',
-        'se-name':          '스낵운동',
-        'se-desc':          '틈새 시간에 즐기는 1분 마이크로 운동 앱',
-        'review':           '심사중',
-        'coming-soon-app':  '출시 준비중',
-        'tbd':              '준비중',
-      },
-      en: {
-        'util':             'Indie Developer Homepage',
-        'nav-games':        'Games',
-        'nav-lifestyle':    'Lifestyle',
-        'nav-privacy':      'Privacy Policy',
-        'hero-desc':        'An indie developer focused on simple but fun games. From puzzle and casual games to running and wellness apps — I design, build, and ship everything solo.',
-        'section-games':    'Games',
-        'section-lifestyle':'Lifestyle',
-        'pw-name':          'Paint Worm',
-        'pw-desc':          'A casual puzzle game where you paint your way forward',
-        'mp-name':          'Monopath',
-        'mp-desc':          'A one-stroke puzzle game — connect every tile in one move',
-        'mq-name':          'MemoriQ',
-        'mq-desc':          'Flip cards and match pairs to train your memory',
-        'cq-name':          'ColourQ',
-        'cq-desc':          'A sensory colour puzzle — test your eye for colour',
-        'cbq-name':         'ChromabarQ',
-        'cbq-desc':         'Sort coloured rings to solve each puzzle',
-        'rc-desc':          'Running outfit recommendations based on today\'s weather',
-        'se-name':          'Snack Exercise',
-        'se-desc':          'A 1-minute micro-workout app for busy people',
-        'review':           'Under Review',
-        'coming-soon-app':  'Coming Soon',
-        'tbd':              'Coming Soon',
-      }
-    };
-
-    let currentLang = 'ko';
-
-    function toggleLang() {
-      currentLang = currentLang === 'ko' ? 'en' : 'ko';
-      const t = translations[currentLang];
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.dataset.i18n;
-        if (t[key] !== undefined) el.textContent = t[key];
+<script>
+  /* ── PARTICLES ── */
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  function initParticles() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    particles = [];
+    for (let i = 0; i < 55; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 1.8 + 0.5,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
       });
-      document.getElementById('langBtn').textContent = currentLang === 'ko' ? 'ENG' : '한국어';
-      document.documentElement.lang = currentLang;
     }
-  </script>
+  }
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+      ctx.fillStyle = 'rgba(134,194,50,0.5)';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    requestAnimationFrame(animateParticles);
+  }
+  window.addEventListener('resize', initParticles);
+  initParticles();
+  animateParticles();
+
+  /* ── SCROLL ANIMATION ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.app-card').forEach(el => observer.observe(el));
+
+  /* ── i18n ── */
+  const translations = {
+    ko: {
+      'util':             '개인개발자홈페이지',
+      'nav-games':        '게임',
+      'nav-lifestyle':    '라이프스타일',
+      'nav-privacy':      '개인정보처리방침',
+      'hero-tag':         '1인 인디 게임 개발자',
+      'hero-desc':        '복잡한 것보다 누구나 쉽게 즐길 수 있는 재미를 만드는 1인 개발자입니다. 퍼즐·캐주얼 게임과 러닝·운동 같은 라이프스타일 앱을 직접 기획하고 개발해 꾸준히 출시하고 있습니다.',
+      'tag-idea':         '기획',
+      'tag-design':       '디자인',
+      'tag-dev':          '개발',
+      'label-games':      'Games',
+      'section-games':    '게임',
+      'label-lifestyle':  'Lifestyle',
+      'section-lifestyle':'라이프스타일',
+      'pw-name':          '페인트웜',
+      'pw-desc':          '색을 칠하며 나아가는 캐주얼 퍼즐 게임',
+      'mp-name':          '모노패스',
+      'mp-desc':          '모든 타일을 한 붓으로 잇는 퍼즐 게임',
+      'mq-name':          'MemoriQ',
+      'mq-desc':          '뒤집힌 카드를 맞추며 기억력을 키우는 암기력 게임',
+      'cq-name':          'ColourQ',
+      'cq-desc':          '색감을 겨루는 감각적인 컬러 퍼즐 게임',
+      'cbq-name':         'ChromabarQ',
+      'cbq-desc':         '색깔 링을 맞춰 정렬하는 컬러 퍼즐 게임',
+      'rc-desc':          '날씨에 맞는 러닝 복장을 추천해주는 앱',
+      'se-name':          '스낵운동',
+      'se-desc':          '틈새 시간에 즐기는 1분 마이크로 운동 앱',
+      'review':           '심사중',
+      'coming-soon-app':  '출시 준비중',
+      'tbd':              '준비중',
+    },
+    en: {
+      'util':             'Indie Developer Homepage',
+      'nav-games':        'Games',
+      'nav-lifestyle':    'Lifestyle',
+      'nav-privacy':      'Privacy Policy',
+      'hero-tag':         'Independent Game Developer',
+      'hero-desc':        'An indie developer focused on simple but fun games. From puzzle and casual games to running and wellness apps — I design, build, and ship everything solo.',
+      'tag-idea':         'Idea',
+      'tag-design':       'Design',
+      'tag-dev':          'Develop',
+      'label-games':      'Games',
+      'section-games':    'Games',
+      'label-lifestyle':  'Lifestyle',
+      'section-lifestyle':'Lifestyle',
+      'pw-name':          'Paint Worm',
+      'pw-desc':          'A casual puzzle game where you paint your way forward',
+      'mp-name':          'Monopath',
+      'mp-desc':          'A one-stroke puzzle game — connect every tile in one move',
+      'mq-name':          'MemoriQ',
+      'mq-desc':          'Flip cards and match pairs to train your memory',
+      'cq-name':          'ColourQ',
+      'cq-desc':          'A sensory colour puzzle — test your eye for colour',
+      'cbq-name':         'ChromabarQ',
+      'cbq-desc':         'Sort coloured rings to solve each puzzle',
+      'rc-desc':          'Running outfit recommendations based on today\'s weather',
+      'se-name':          'Snack Exercise',
+      'se-desc':          'A 1-minute micro-workout app for busy people',
+      'review':           'Under Review',
+      'coming-soon-app':  'Coming Soon',
+      'tbd':              'Coming Soon',
+    }
+  };
+
+  let currentLang = 'ko';
+  function toggleLang() {
+    currentLang = currentLang === 'ko' ? 'en' : 'ko';
+    const t = translations[currentLang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      if (t[el.dataset.i18n]) el.textContent = t[el.dataset.i18n];
+    });
+    document.getElementById('langBtn').textContent = currentLang === 'ko' ? 'ENG' : '한국어';
+    document.documentElement.lang = currentLang;
+  }
+</script>
 
 </body>
 </html>
