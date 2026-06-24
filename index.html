@@ -84,6 +84,7 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--primary); }
+    .nav-links .contact-btn { color: #0d1a00; }
     .contact-btn {
       background: var(--primary);
       color: #0d1a00;
@@ -179,6 +180,8 @@
     .hero-logo-wrap {
       position: relative;
       animation: float 3.6s ease-in-out infinite;
+      border-radius: 50%;
+      overflow: hidden;
     }
     .hero-logo-wrap img {
       width: clamp(240px, 30vw, 380px);
@@ -186,7 +189,7 @@
       border-radius: 50%;
       object-fit: cover;
       position: relative; z-index: 2;
-      border: 6px solid var(--bg);
+      transform: scale(1.09);
       filter: drop-shadow(0 0 40px rgba(160,223,76,0.45));
     }
     .hero-glow {
